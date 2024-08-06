@@ -95,6 +95,9 @@ def create_app():
 
     @app.route("/answer", methods=["POST"])  # Answers the incoming call.
     def answer_call():
+        global error_counter, current_question_index
+        current_question_index = 0  # Reset question index at the start of the call
+        error_counter = 0  # Reset error counter at the start of the call
         caller_sid = request.form.get('CallSid')
         new_call = Call(caller_sid=caller_sid)
         db.session.add(new_call)
