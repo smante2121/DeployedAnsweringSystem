@@ -1,7 +1,24 @@
 # Deployed Answering System
 
-## Overview
-Welcome to the Deployed Answering System repository. This project is an advanced iteration of previous answering systems, now fully deployed via Google Cloud Run and utilizing a Google Cloud MySQL instance for robust data management. The system is designed to handle patient calls, collecting and validating critical information before transferring the call to an appropriate healthcare provider. It leverages Twilio's APIs for seamless voice interaction and data gathering.
+## Project Overview
+
+This project is an advanced answering system designed for medical offices to handle incoming patient calls efficiently. It receives calls, gathers patient information (via voice and DTMF), uploads the data to a Google Cloud SQL instance database, and then seamlessly transfers the caller to the appropriate representative. Built using Flask and Twilio's APIs, the system is deployed on Google Cloud Run, and its deployment URL serves as the webhook for the Twilio phone number.
+
+Upon receiving a call, the system creates a new row in the database to collect information from the caller. As the caller provides responses, either by voice or DTMF, the raw transcript is written to the appropriate cell in the database. The transcript is then analyzed to determine if a valid answer can be extracted. If valid, the transcript is replaced with a standardized answer format; otherwise, the question repeats. Logic is also incorporated to abort the call if too many errors occur. Agents can access this data instantly after the caller is transferred, streamlining the process for both patients and agents while logging call information for patient records.
+
+This project is the culmination of three different versions, each building upon the previous one with different implementations:
+
+- **[Version 1: STT-Gemini-TTS Web Application](https://github.com/smante2121/STT-gemini-TTS)**  
+  A research-focused web application using Google's Speech-to-Text API and Gemini conversational AI to manage conversation flow, built with Flask, HTML, CSS, and JavaScript.
+
+- **[Version 2: Desktop Answering System](https://github.com/smante2121/DesktopAnsweringSystem)**  
+  A desktop application leveraging Deepgram's Speech-to-Text and Text-to-Speech APIs to manage interactions, designed as an answering system for medical offices.
+
+- **[Version 3: Local Answering System](https://github.com/smante2121/LocalAnsweringSystem)**  
+  A Python Flask application integrating Twilio's APIs for handling calls and storing caller responses in a local SQLite database, optimizing patient call management.
+
+This final version enhances these earlier implementations, offering a robust, scalable solution for medical offices.
+
 
 ### Features
 - **Twilio API Integration:** Manages incoming calls, gathers responses, and handles DTMF (Dual-Tone Multi-Frequency) input and voice responses through Twilio's API.
